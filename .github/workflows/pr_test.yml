@@ -10,6 +10,10 @@ jobs:
   build:
     name: test gorkscew PR
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      security-events: write
     steps:
       - name: Check out source code
         uses: actions/checkout@v1
