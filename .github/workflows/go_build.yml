@@ -20,7 +20,7 @@ jobs:
 
     - name: Read version from release.json
       uses: notiz-dev/github-action-json-property@release
-      id: gorkscrew_version
+      id: version
       with:
         path: 'release.json'
         prop_path: 'version'
@@ -32,11 +32,11 @@ jobs:
         path: 'release.json'
         prop_path: 'go_version'
 
-    - name: Build gorkscrew binary
+    - name: Build binary
       uses: wangyoucao577/go-release-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         goversion: "https://dl.google.com/go/go${{ steps.go_version.outputs.prop }}.linux-amd64.tar.gz"
-        ldflags: "-X 'main.GorkscrewVersion=${{ steps.gorkscrew_version.outputs.prop }}' -X 'main.GoVersion=${{ steps.go_version.outputs.prop }}'"
+        ldflags: "-X 'main.Version=${{ steps.version.outputs.prop }}' -X 'main.GoVersion=${{ steps.go_version.outputs.prop }}'"
