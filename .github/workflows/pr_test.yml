@@ -1,0 +1,37 @@
+name: pr_test
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: test gorkscew PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v1
+
+      - id: file_changes
+        uses: trilom/file-changes-action@v1.2.3
+
+      - name: check if release.json has been modified
+        run: |
+          grep release.json $HOME/files.json
+
+      - name: Read release.json
+        uses: notiz-dev/github-action-json-property@release
+        id: package_info
+        with:
+          path: 'release.json'
+          prop_path: 'go_version'
+
+      - run: echo "version is ${{ steps.package_info.outputs.prop }}"
+
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ steps.package_info.outputs.prop }}
+
+      - name: Run go test
+        run: go test -v gorkscrew.go
