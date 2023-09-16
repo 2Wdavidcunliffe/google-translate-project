@@ -2,7 +2,8 @@ name: new_release
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - main
 
   workflow_dispatch:
 
