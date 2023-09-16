@@ -11,13 +11,17 @@ jobs:
     name: build_to_release
     runs-on: ubuntu-latest
     permissions:
-      actions: read
       contents: write
-      security-events: write
+      packages: write
     strategy:
       matrix:
-        goos: [linux]
-        goarch: [amd64]
+        goos: [linux, windows, darwin]
+        goarch: ["386", amd64, arm64]
+        exclude:
+          - goarch: "386"
+            goos: darwin
+          - goarch: arm64
+            goos: windows
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
