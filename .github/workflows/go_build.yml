@@ -41,10 +41,10 @@ jobs:
         prop_path: 'go_version'
 
     - name: Build binary
-      uses: wangyoucao577/go-release-action@master
+      uses: wangyoucao577/go-release-action@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         goversion: "https://dl.google.com/go/go${{ steps.go_version.outputs.prop }}.linux-amd64.tar.gz"
-        ldflags: "-X 'main.Version=${{ steps.version.outputs.prop }}' -X 'main.GoVersion=${{ steps.go_version.outputs.prop }}'"
+        binary_name: "google-translate-prj-v{{ steps.version.outputs.prop }}"
