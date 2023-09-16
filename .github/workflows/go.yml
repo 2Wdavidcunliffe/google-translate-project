@@ -3,9 +3,12 @@ name: release
 
 # on events
 on:
-  release:
-    types:
-      - created
+  pull_request:
+    types: [opened, synchronize, edited, ready_for_review]
+    branches:
+      - main
+
+  workflow_dispatch:
 
 # jobs
 jobs:
