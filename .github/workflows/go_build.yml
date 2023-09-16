@@ -2,7 +2,8 @@ name: go_build
 
 on:
   release:
-    types: [created]
+    types: 
+      - created
 
   workflow_dispatch:
 
