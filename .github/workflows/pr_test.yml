@@ -2,7 +2,8 @@ name: pr_test
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master
 
   workflow_dispatch:
 
@@ -12,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    name: test gorkscew PR
+    name: Test PR
     runs-on: ubuntu-latest
     steps:
       - name: Check out source code
@@ -40,4 +41,4 @@ jobs:
           go-version: ${{ steps.package_info.outputs.prop }}
 
       - name: Run go test
-        run: go test -v gorkscrew.go
+        run: go test -v main.go
